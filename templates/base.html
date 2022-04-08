@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <title>{% block title %} {% endblock%}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <link rel="stylesheet" href="{% static 'css/vendor.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+
+    <!-- script
+    ================================================== -->
+    <script src="{%static 'js/modernizr.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico'%}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico'%}" type="image/x-icon">
+
+</head>
+
+<body id="top" >
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header header" >
+
+        <div class="header__logo">
+            <a class="logo" href="{% url 'home' %}">
+                <img style="width: 55px; height: 50px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_-a_pwHlzgqcdHRgHgpOz0BsS3fWd67e8yw&usqp=CAU" style="height: 6.9rem; width: 6.9rem;" alt="IT-WORLD">
+            </a>
+        </div> <!-- end header__logo -->
+
+
+        <a class="header__search-trigger" href="#0"></a>
+        <div class="header__search">
+
+            <form role="search" method="get" class="header__search-form" action="{% url 'home' %}">
+                <label>
+                    <span class="hide-content">Search for:</span>
+                    <input type="search" class="search-field" placeholder="Search" value="" name="q" id="query" title="Search for:" autocomplete="off">
+                </label>
+                <input type="submit" class="search-submit" value="Search">
+            </form>
+
+            <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+
+        </div>  <!-- end header__search -->
+
+        <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+        <nav class="header__nav-wrap" >
+
+            <h2 class="header__nav-heading h6">Navigate to</h2>
+
+            <ul class="header__nav">
+                <li class="current"><a href="{% url 'home'%}" title="">Home</a></li>
+                <li class="has-children">
+                    <a href="#0" title="">Categories</a>
+                    <ul class="sub-menu">
+                        {% for category in categories %}
+                        <li><a href="{% url 'category' category.slug %}">{{ category }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'favourite_post_list'%}" title="">favourites</a></li>
+                {%endif%}
+                <li><a href="{% url 'add-post'%}" title="">Add post</a></li>
+                {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'registration' %}"><i class="fa fa-registered fa-2x" aria-hidden="true"></i></a></li>
+                <li><a href="{% url 'login' %}"><i class="far fa-user-circle fa-2x"></i></a></li>
+                {% else %}
+                <li><a href="{% url 'profile' %}"><i class="fas fa-user-circle fa-2x"></i></a></li>
+                <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
+                {% endif %}
+                <li> <a href="https://t.me/tuthomies_bot"><i class="fab fa-telegram-plane fa-2x"></i></a></li>
+            </ul> <!-- end header__nav -->
+
+            <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+        </nav> <!-- end header__nav-wrap -->
+{% if messages %}
+                               <ul class="messages">
+                               {% for message in messages %}
+                                <div class="alert alert-success" role="alert">{{ message }}</div>
+                             {% endfor %}
+                               </ul>
+                                 {% endif %}
+
+    </header> <!-- s-header -->
+
+
+
+{% block content %} {% endblock %}
+
+
+    <!-- s-footer
+    ================================================== -->
+    <footer style="background-color: rgb(0, 0, 0)" class="s-footer">
+
+        <div class="s-footer__main">
+            <div class="row">
+
+                <div class="col-six tab-full s-footer__about">
+
+                    <h4>About Wordsmith</h4>
+
+                    <p>Fugiat quas eveniet voluptatem natus. Placeat error temporibus magnam sunt optio aliquam. Ut ut occaecati placeat at.
+                    Fuga fugit ea autem. Dignissimos voluptate repellat occaecati minima dignissimos mollitia consequatur.
+                    Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa error
+                    temporibus magnam est voluptatem.</p>
+
+                </div> <!-- end s-footer__about -->
+
+                <div class="col-six tab-full s-footer__subscribe">
+
+                    <h4>Our Newsletter</h4>
+
+                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
+
+<!--                    <div class="subscribe-form">-->
+<!--                        <form id="mc-form" class="group" novalidate="true">-->
+
+<!--                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">-->
+
+<!--                            <input type="submit" name="subscribe" value="Send">-->
+
+<!--                            <label for="mc-email" class="subscribe-message"></label>-->
+
+<!--                        </form>-->
+                    </div>
+
+                </div> <!-- end s-footer__subscribe -->
+
+            </div>
+        </div> <!-- end s-footer__main -->
+
+        <div class="s-footer__bottom">
+            <div class="row">
+
+
+                <div class="col-six">
+                    <div class="s-footer__copyright">
+                        <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</span>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- end s-footer__bottom -->
+
+        <div class="go-top">
+            <li><a class="smoothscroll" title="Back to Top" href="#top"></a></li>
+        </div>
+
+
+    </footer> <!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <!-- podklychaem jquery do js dlya vzaimodeistviya js i html -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+
+</body>
+
+</html>
